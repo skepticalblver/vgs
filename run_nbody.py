@@ -66,13 +66,17 @@ Mcurr=0
 Vesc= 11e5   #cm/s earth escape speed
 
 Ts =1000 # initital surface temp in K
-henry_water_save= 0.
-henry_nitrogen_save= 0.
-henry_carbon_save= 0.
+ingass_water= 0.
+ingass_carbon= 0.
+ingass_nitrogen= 0.
+degass_water= 0.
+degass_carbon= 0.
+degass_nitrogen= 0.
 mantle_grams = 0.
 h_frac = 1.
 Cp = 1e7 #specific heat of surface layer in ergs
 ingass_grams = 0.
+degass_grams = 0.
 impactEsc= 0.
 impactEsc_save = 0.
 D_c = 3000  #partition coefficient for carbon
@@ -127,6 +131,7 @@ for filename in sorted(glob.glob('nbody_sims/*to*')):
 	mantle_List=[]
 	fracEarth_List=[]
 	fracEarth2_List=[]
+	degassed_List =[]
 
 	au=[] 
 	nindex=[] 
@@ -186,9 +191,9 @@ for filename in sorted(glob.glob('nbody_sims/*to*')):
 					target_r = get_radius.r_cm(target_m)
 					g_accel = cgrav*target_m/(target_r)**2 
 				
-					water_a=1e18 # target_m*float(SF.water_mf(target_au))
-					carbon_a=1e18 #target_m*SF.carbon_mf(target_au)*0.005
-					nitrogen_a= 1e18#target_m*SF.nitrogen_mf(target_au)*0.005
+					water_a=1e22 # target_m*float(SF.water_mf(target_au))
+					carbon_a=0.#target_m*SF.carbon_mf(target_au)*0.005
+					nitrogen_a= 0.#target_m*SF.nitrogen_mf(target_au)*0.005
 					carbon_c = 1e16				
 					atm_grams= water_a +  carbon_a + nitrogen_a
 					
@@ -217,6 +222,7 @@ for filename in sorted(glob.glob('nbody_sims/*to*')):
 					waterm_List.append('{:0.3e}'.format(water_m))
 					carbonm_List.append('{:0.3e}'.format(carbon_m))
 					ingassed_List.append('{:0.3e}'.format(ingass_grams))
+					degassed_List.append('{:0.3e}'.format(degass_grams))
 					nitrogenm_List.append('{:0.3e}'.format(nitrogen_m))
 					ts_List.append('{:0.3e}'.format(Ts))
 					accret_List.append('{:0.3e}'.format(accret_tot))
@@ -307,24 +313,30 @@ for filename in sorted(glob.glob('nbody_sims/*to*')):
 
 					if water_m_eq > water_m and (henry.kH_t(Ta,'water')*Psurf_bar*water_molfrac)*water_mm > water_m_eq/(target_m*0.6):						
 							water_a = water_a -(water_m_eq -water_m)
-							water_m = water_m_eq
+							ingass_water = water_m_eq -water_m 
 					else:
 							water_a = water_a +(water_m -  water_m_eq)
-							water_m = water_m_eq
-                            
+							degass_water = water_m - water_m_eq
+					water_m = water_m_eq
+                                                
 					if carbon_m_eq > carbon_m and (henry.kH_t(Ta,'carbon')*Psurf_bar*carbon_molfrac)*carbon_mm > carbon_m_eq/(target_m*0.6):						
 							carbon_a = carbon_a -(carbon_m_eq -carbon_m)
-							carbon_m = carbon_m_eq
+							ingass_carbon = carbon_m_eq - carbon_m
 					else:
 							carbon_a = carbon_a +(carbon_m - carbon_m_eq)
-							carbon_m = carbon_m_eq
-                            
+							degass_carbon = carbon_m - carbon_m_eq
+					carbon_m = carbon_m_eq
+                    
 					if nitrogen_m_eq > nitrogen_m and (henry.kH_t(Ta,'nitrogen')*Psurf_bar*nitrogen_molfrac)*nitrogen_mm > nitrogen_m_eq/(target_m*0.6):						
 							nitrogen_a = nitrogen_a -(nitrogen_m_eq - nitrogen_m)
-							nitrogen_m = nitrogen_m_eq
+							ingass_nitrogen = nitrogen_m_eq - nitrogen_m
 					else:
 							nitrogen_a = nitrogen_a +(nitrogen_m - nitrogen_m_eq)
-							nitrogen_m = nitrogen_m_eq
+							degass_nitrogen =  nitrogen_m - nitrogen_m_eq
+					nitrogen_m = nitrogen_m_eq
+                                                
+					ingass_tot= ingass_water + ingass_carbon + ingass_nitrogen
+					degass_tot = degass_water + degass_carbon  + degass_nitrogen
 												
 					water_a = max(10.,water_a)
 					carbon_a = max(10.,carbon_a)
@@ -354,7 +366,7 @@ for filename in sorted(glob.glob('nbody_sims/*to*')):
 				
 					last_GI_time = time
 					GI_mass = GI_mass + project_m
-					print(carbon_a,nitrogen_a,carbon_m,nitrogen_m)
+					
 
 					Psurf_List.append(round(Psurf_bar,3))  
 					waterfrac_List.append('{:0.3e}'.format(water_a))
@@ -400,13 +412,13 @@ for filename in sorted(glob.glob('nbody_sims/*to*')):
 						#nitrogen_a= nitrogen_a + Mpl*SF.nitrogen_mf(project_au)
 						#atm_grams= water_a +nitrogen_a +carbon_a + argon_a
 				
-						water_a= water_a + Mpl*SF.water_mf(project_au)
-						carbon_a= carbon_a + Mpl*SF.carbon_mf(project_au)
-						nitrogen_a= nitrogen_a + Mpl*SF.nitrogen_mf(project_au)
+						water_m= water_m + Mpl*SF.water_mf(project_au)
+						carbon_m= carbon_m + Mpl*SF.carbon_mf(project_au)
+						nitrogen_m= nitrogen_m + Mpl*SF.nitrogen_mf(project_au)
 						
 						accret_tot = Mpl*SF.water_mf(project_au) + Mpl*SF.carbon_mf(project_au) +  Mpl*SF.nitrogen_mf(project_au)
 						#print 'target_m=',atm_grams,water_grams ,nitrogen_grams,carbon_grams
-						atm_grams =   water_a  + carbon_a  +  nitrogen_a
+						mantle_grams =   water_m  + carbon_m  +  nitrogen_m
 
 						water_mm = 18.  # in g /mol
 						carbon_mm = 12.
@@ -497,33 +509,39 @@ for filename in sorted(glob.glob('nbody_sims/*to*')):
 						##############Henry's Law####################
 						Psurf  = atm_grams*g_accel/SA_planet
 						Psurf_bar = Psurf*1e-6
-						#Tsurf = (Psurf*Vearth)/(water_mol*R_gas)
+						Tsurf = (Psurf*Vearth)/(water_mol_a*R_gas)
 						
 						water_m_eq= (henry.kH_tf(Ta,'water')*Psurf_bar*water_molfrac)*water_mm*target_m*0.6  #molarity * molar mass = grams/litter, (molarity * mass)* solution mass = grams
 						carbon_m_eq  = (henry.kH_tf(Ta,'carbon')*Psurf_bar*carbon_molfrac)*carbon_mm*target_m*0.6
 						nitrogen_m_eq = (henry.kH_tf(Ta,'nitrogen')*Psurf_bar*nitrogen_molfrac)*nitrogen_mm*target_m*0.6
 
 
-						if water_m_eq > water_m: #and (henry.kH_t(Ta,'water')*Psurf_bar*water_molfrac)*water_mm > water_m_eq/(target_m*0.6):						
+						if water_m_eq > water_m and (henry.kH_t(Ta,'water')*Psurf_bar*water_molfrac)*water_mm > water_m_eq/(target_m*0.6):						
 							water_a = water_a -(water_m_eq -water_m)
-							water_m = water_m_eq
+							ingass_water = water_m_eq -water_m 
 						else:
-							water_a = water_a +(water_m - water_m_eq)
-							water_m = water_m_eq
-                            
-						if carbon_m_eq > carbon_m: #and (henry.kH_t(Ta,'carbon')*Psurf_bar*carbon_molfrac)*carbon_mm > carbon_m_eq/(target_m*0.6):						
+							water_a = water_a +(water_m -  water_m_eq)
+							degass_water = water_m - water_m_eq
+						water_m = water_m_eq
+                                                
+						if carbon_m_eq > carbon_m and (henry.kH_t(Ta,'carbon')*Psurf_bar*carbon_molfrac)*carbon_mm > carbon_m_eq/(target_m*0.6):						
 							carbon_a = carbon_a -(carbon_m_eq -carbon_m)
-							carbon_m = carbon_m_eq
+							ingass_carbon = carbon_m_eq - carbon_m
 						else:
 							carbon_a = carbon_a +(carbon_m - carbon_m_eq)
-							carbon_m = carbon_m_eq
-                            
-						if nitrogen_m_eq > nitrogen_m: #and (henry.kH_t(Ta,'nitrogen')*Psurf_bar*nitrogen_molfrac)*nitrogen_mm > nitrogen_m_eq/(target_m*0.6):						
+							degass_carbon = carbon_m - carbon_m_eq
+						carbon_m = carbon_m_eq
+                    
+						if nitrogen_m_eq > nitrogen_m and (henry.kH_t(Ta,'nitrogen')*Psurf_bar*nitrogen_molfrac)*nitrogen_mm > nitrogen_m_eq/(target_m*0.6):						
 							nitrogen_a = nitrogen_a -(nitrogen_m_eq - nitrogen_m)
-							nitrogen_m = nitrogen_m_eq
+							ingass_nitrogen = nitrogen_m_eq - nitrogen_m
 						else:
 							nitrogen_a = nitrogen_a +(nitrogen_m - nitrogen_m_eq)
-							nitrogen_m = nitrogen_m_eq
+							degass_nitrogen =  nitrogen_m - nitrogen_m_eq
+						nitrogen_m = nitrogen_m_eq
+                                                
+						ingass_tot= ingass_water + ingass_carbon + ingass_nitrogen
+						degass_tot = degass_water + degass_carbon  + degass_nitrogen
                             
 												
 						water_a = max(10.,water_a)
@@ -544,9 +562,9 @@ for filename in sorted(glob.glob('nbody_sims/*to*')):
 						if carbon_c_eq > carbon_c: #and (D_c*(carbon_m/m_react)) > carbon_c_eq/((1/3*target_m)*(m_react/(target_m*2/3))):						
 							#carbon_m = carbon_m -(carbon_c_eq -carbon_c)
 							carbon_c = carbon_c_eq
-						else:
-							#carbon_m = carbon_m +(carbon_c - carbon_c_eq)
-							carbon_c = carbon_c_eq
+					#	else:
+					#		carbon_m = carbon_m +(carbon_c - carbon_c_eq)
+					#		carbon_c = carbon_c_eq
                     
 						water_m = max(10.,water_m)
 						carbon_m = max(10.,carbon_m)
@@ -560,7 +578,7 @@ for filename in sorted(glob.glob('nbody_sims/*to*')):
 						Psurf_bar =Psurf*1e-6
 						
 						
-						#print F_atm, sigma,Teq,tau,Ts,atm_grams
+						print(Tsurf, atm_grams)
 						#if math.isnan(F_atm):
 						#	sys.exit()
 						if (Rpl > 1e7 or random.uniform(0,1) < 1e-4):
@@ -570,6 +588,7 @@ for filename in sorted(glob.glob('nbody_sims/*to*')):
 							rpl2_List.append(float(Rpl))
 							esc2_List.append('{:0.3e}'.format(impactEsc))
 							ingassed2_List.append('{:0.3e}'.format(ingass_grams))
+							degassed_List.append('{:0.3e}'.format(degass_grams))
 							atm2_List.append('{:0.3e}'.format(atm_grams))
 							mantle2_List.append('{:0.3e}'.format(mantle_grams))
 							accret2_List.append('{:0.3e}'.format(accret_tot))	
@@ -605,6 +624,7 @@ for filename in sorted(glob.glob('nbody_sims/*to*')):
 					carbonm_List.append('{:0.3e}'.format(carbon_m))
 					carbonc_List.append('{:0.3e}'.format(carbon_c))
 					ingassed_List.append('{:0.3e}'.format(ingass_grams))
+					degassed_List.append('{:0.3e}'.format(degass_grams))
 					nitrogenm_List.append('{:0.3e}'.format(nitrogen_m))
 					ts_List.append('{:0.3e}'.format(Ts))
 					accret_List.append('{:0.3e}'.format(accret_tot))
@@ -634,7 +654,8 @@ for filename in sorted(glob.glob('nbody_sims/*to*')):
 			#newdata.append(withAU2)
 	counter  = counter+1
 	######################save data################
-	outname = filename.split('/')[1]
+	newname = filename.replace(".", "")
+	outname = newname.split('/')[1]
 
 	with open('nbody_sims/n_out/OUT_ATM_' + outname, 'w') as f2:
 		writer = csv.writer(f2, delimiter='\t')
@@ -647,9 +668,7 @@ for filename in sorted(glob.glob('nbody_sims/*to*')):
 		f4.write("%s %s %s %s %s %s %s" % ("Earth", "CoreC", "BulkMantle", "Water  ", "carbon ", "Nitrogen", "time \n"))
 		writer.writerows(zip(fracEarth_List, carbonc_List,  mantle_List, waterm_List,carbonm_List, nitrogenm_List,time_List))
 
-	#with open('nbody_sims/n_out/OUT_FLUX_' + outname, 'w') as f6:
-	#	writer = csv.writer(f6, delimiter='\t')
-		#f6.write("%s %s %s %s %s %s %s" % ("Earth", "CoreC", "BulkMantle", "Water  ", "carbon ", "Nitrogen", "time \n"))
-		#
-      #  writer.writerows(zip(fracEarth_List, carbonc_List,  mantle_List, waterm_List,carbonm_List, nitrogenm_List,time_List))
-
+	#with open('reference/OUT_FLUX_ref', 'w') as f6:
+		#writer = csv.writer(f6, delimiter='\t')
+		#f6.write("%s %s %s %s %s %s" % ("Earth", "Esc", "Accreted", "Ingassed", "Degassed", "time \n"))
+		#writer.writerows(zip(fracEarth_List, esctot_List,  accret_List, ingassed_List, degassed_List, time_List))

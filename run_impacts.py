@@ -97,9 +97,6 @@ bottke_radii = np.linspace(600,1500,15)
 
 new_radii = list(ab_radii) + list(bottke_radii)
 
-cut_radii = [x for x in ab_radii if x =>100.]
-
-
 initial = True #if true, run initialization8to1-0.5-10
 #initialize list to store various atmophiles      
 atm_List=[]
@@ -247,7 +244,7 @@ with open(filepath + "/planetgrowth.out",'r') as f:
                         initial = False
                         if int(project_i) <= emb_divide: # for embryos
                                 print ("embryo")
-                                print(carbon_a,nitrogen_a,carbon_m,nitrogen_m,carbon_c)
+                               
                                 ##########################deposit/accret gas$$$$$$$$$$$$$$$$$$$$$$$$$$$$	
                                 emb_water, emb_carbon, emb_nitrogen = run_embryo_f.calc(project_i,emb_divide)
                                 water_a= water_a + emb_water
@@ -261,7 +258,7 @@ with open(filepath + "/planetgrowth.out",'r') as f:
                                # water_m = water_m + emb_water
                                 #carbon_m = carbon_m + emb_carbon
                                 #nitrogen_m = nitrogen_m + emb_nitrogen
-                                accret_tot = emb_water + emb_carbon + emb_nitrogen
+                                #accret_tot =  emb_water + emb_carbon + emb_nitrogen
 
                                # mantle_grams =   water_m + carbon_m+ nitrogen_a 
 
@@ -293,18 +290,18 @@ with open(filepath + "/planetgrowth.out",'r') as f:
         
                                 impactEsc_save =  impactEsc_save + impactEsc  #save atm loss res
 
-                                water_a  = water_a -impactEsc*water_molfrac 
-                                carbon_a = carbon_a - impactEsc*carbon_molfrac 
-                                nitrogen_a = nitrogen_a - impactEsc*nitrogen_molfrac  
+                               # water_a  = water_a -impactEsc*water_molfrac 
+                                #carbon_a = carbon_a - impactEsc*carbon_molfrac 
+                              #  nitrogen_a = nitrogen_a - impactEsc*nitrogen_molfrac  
 
                                 atm_grams= water_a +nitrogen_a +carbon_a 
         #########################hydrodynamics escape, energy-limited##############
                                 Feuv=29.7*(time/1e9)**(-1.23)*(1.23)**(-2)
                                 m_elim = (np.pi*Feuv*target_r**3)/(cgrav*target_m)
 
-                                water_a  = water_a - m_elim*water_molfrac
-                                carbon_a = carbon_a - m_elim*carbon_molfrac
-                                nitrogen_a = nitrogen_a - m_elim*nitrogen_molfrac
+                                #water_a  = water_a - m_elim*water_molfrac
+                                #carbon_a = carbon_a - m_elim*carbon_molfrac
+                                #nitrogen_a = nitrogen_a - m_elim*nitrogen_molfrac
 
                                 atm_grams= water_a +nitrogen_a +carbon_a
                                 atm_grams  = max(1,atm_grams)
@@ -495,9 +492,9 @@ with open(filepath + "/planetgrowth.out",'r') as f:
                                         mpl_List.append(float(Mpl))
                                         atmpl_List.append(float(atm_grams))
                                         
-                                        water_a  = water_a -impactEsc*water_molfrac 
-                                        carbon_a = carbon_a - impactEsc*carbon_molfrac 
-                                        nitrogen_a = nitrogen_a - impactEsc*nitrogen_molfrac 
+                                        #water_a  = water_a -impactEsc*water_molfrac 
+                                        #carbon_a = carbon_a - impactEsc*carbon_molfrac 
+                                        #nitrogen_a = nitrogen_a - impactEsc*nitrogen_molfrac 
                                 
 
                                         atm_grams= water_a +nitrogen_a +carbon_a 
@@ -507,17 +504,17 @@ with open(filepath + "/planetgrowth.out",'r') as f:
                                         Feuv=29.7*(time/1e9)**(-1.23)*(1.23)**(-2)
                                         m_elim = (np.pi*Feuv*target_r**3)/(cgrav*target_m)
 
-                                        water_a  = water_a - m_elim*water_molfrac
-                                        carbon_a = carbon_a - m_elim*carbon_molfrac
-                                        nitrogen_a = nitrogen_a - m_elim*nitrogen_molfrac
+                                        #water_a  = water_a - m_elim*water_molfrac
+                                        #carbon_a = carbon_a - m_elim*carbon_molfrac
+                                        #nitrogen_a = nitrogen_a - m_elim*nitrogen_molfrac
                                         
-                                        atm_grams= water_a +nitrogen_a +carbon_a 
+                                        #atm_grams= water_a +nitrogen_a +carbon_a 
 
-                                        atm_grams  = max(1,atm_grams)
+                                        #atm_grams  = max(1,atm_grams)
                                         ##############Henry's Law####################
                                         Psurf  = atm_grams*g_accel/SA_planet
                                         Psurf_bar = Psurf*1e-6
-                                        #Tsurf = (Psurf*Vearth)/(water_mol*R_gas)
+                                        Tsurf = (Psurf*Vearth)/(water_mol_a*R_gas)
                                         
                                         water_m_eq= (henry.kH_tf(Ta,'water')*Psurf_bar*water_molfrac)*water_mm*target_m*0.6  #molarity * molar mass = grams/litter, (molarity * mass)* solution mass = grams
                                         carbon_m_eq  = (henry.kH_tf(Ta,'carbon')*Psurf_bar*carbon_molfrac)*carbon_mm*target_m*0.6
@@ -585,7 +582,7 @@ with open(filepath + "/planetgrowth.out",'r') as f:
                                         #print F_atm, sigma,Teq,tau,Ts,atm_grams
                                         #if math.isnan(F_atm):
                                         #	sys.exit()
-                                        if (Rpl > 1e8 or random.uniform(0,1) < 1.8e-4):
+                                        if (Rpl > 1e8 or random.uniform(0,1) < 1.5e-4):
                                                 #print(carbon_a,nitrogen_a,carbon_m)
 
                                                 fracEarth2_List.append(round(target_m/Mearth,3))  #Mearth
@@ -653,18 +650,18 @@ with open(filepath + "/planetgrowth.out",'r') as f:
 
 ######################save data################
 
-with open('plcomp/OUT_ATM_cc_0.2', 'w') as f2:
+with open('impact_tests/OUT_ATM_impacts', 'w') as f2:
         writer = csv.writer(f2, delimiter='\t')
         #writer.write(zip("Earth", "Psurf", "atm", "water", "carbon", "nitrogen",  "mantle"))
-        f2.write("%s %s %s %s %s %s %s" % ("Earth   " +str(final_mass) +" "+ str(emb_divide),  "Psurf   ", "atm   ", "water   ", "carbon   ", "nitrogen", "time  final GIt = " + str(last_GI_time) + "  final GIm =" + str(GI_mass) +" tot CC =" + str(cc_mass) + "\n") ) 
+        f2.write("%s %s %s %s %s %s %s" % ("Earth   " +str(final_mass) +" "+ str(emb_divide),  "Psurf   ", "atm   ", "water   ", "carbon   ", "nitrogen", "time  final GIt = " + "final_GIt" + "  final GIm =" + "fina_GIm" +" tot CC =" + str(cc_mass) + "\n") ) 
         writer.writerows(zip(fracEarth_List,Psurf_List,atm_List,waterfrac_List,carbonfrac_List,nitrogenfrac_List,time_List))
 
-with open('plcomp/OUT_MANT_cc_0.2', 'w') as f4:
+with open('impact_tests/OUT_MANT_impacts', 'w') as f4:
         writer = csv.writer(f4, delimiter='\t')
         f4.write("%s %s %s %s %s %s %s" % ("Earth", "CoreC", "BulkMantle", "Water  ", "carbon ", "Nitrogen", "time \n"))
         writer.writerows(zip(fracEarth_List, carbonc_List,  mantle_List, waterm_List,carbonm_List, nitrogenm_List,time_List))
         
-with open('plcomp/OUT_FLUX_cc_0.2', 'w') as f6:
+with open('impact_tests/OUT_FLUX_impacts', 'w') as f6:
 		writer = csv.writer(f6, delimiter='\t')
 		f6.write("%s %s %s %s %s" % ("Earth", "Esc", "Accreted", "Ingassed", "Degassed \n"))
 		writer.writerows(zip(fracEarth2_List, esctot_List,  accret_List, ingassed_List, degassed_List))
