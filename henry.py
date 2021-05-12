@@ -48,11 +48,11 @@ def kH_tf(T,gas):   #in mol/L*atm
 		kH_ref = 6.1e-4  
 		C = 1300
 	elif gas == 'carbon':
-		kH_ref = 3.4e-2
+		kH_ref = 3.4e-2  #-2
 		C = 2400
 
 	elif gas == 'water':   #hydrogen
-		kH_ref = 7.8e-4
+		kH_ref = 7.8e-3  #-4
 		C = 500
 	elif gas == 'helium':
 		kH_ref = 3.7e-4
