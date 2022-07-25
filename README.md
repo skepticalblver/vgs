@@ -18,3 +18,4 @@ Within the main script, the user can specify the desired output and format, as w
 
 
 ### Crediting This Work
+Please reference this work by citing Chen & Jacobson () and stating the version used (`vol_accretor.version`).
