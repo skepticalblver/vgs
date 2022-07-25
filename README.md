@@ -1,5 +1,5 @@
 ### Model Overview
-`vol_accret` is a package for generating mass abundance predictions of major volatile species during the formmation and accretion of Earth-sized terrestrial planets. The model is resolved across three different profiles ("boxes") and in time. The goal of this tooklit is to provide an understanding of gas-phase species behavior for a given N-body dynamical simulation; namely, the first-order modeling of the volatile content evolution in the atmospheres, interiors, and cores of solar system planets and exoplanets. Version 1 of this package was first built and used in Chen & Jacboson Earth and Planetary Science Letters (2022).
+`vol_accretor` is a package for generating mass abundance predictions of major volatile species during the formmation and accretion of Earth-sized terrestrial planets. The model is resolved across three different profiles ("boxes") and in time. The goal of this tooklit is to provide an understanding of gas-phase species behavior for a given N-body dynamical simulation; namely, the first-order modeling of the volatile content evolution in the atmospheres, interiors, and cores of solar system planets and exoplanets. Version 1 of this package was first built and used in Chen & Jacboson Earth and Planetary Science Letters (2022).
 
 To acheive the goal of balancing between simplicity and realism, the calculations for the volatile delivery, exchange, and loss are idealized in by assuming that:
 
@@ -19,3 +19,9 @@ Within the main script, the user can specify the desired output and format, as w
 
 ### Crediting This Work
 Please reference this work by citing Chen & Jacobson () and stating the version used (`vol_accretor.version`).
+
+### Getting Started
+
+
+
+### More Examples
