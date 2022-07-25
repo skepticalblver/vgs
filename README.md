@@ -1,3 +1,4 @@
+### Model Overview
 `vol_accret` is a package for generating mass abundance predictions of major volatile species during the formmation and accretion of Earth-sized terrestrial planets. The model is resolved across three different profiles ("boxes") and in time. The goal of this tooklit is to provide an understanding of gas-phase species behavior for a given N-body dynamical simulation; namely, the first-order modeling of the volatile content evolution in the atmospheres, interiors, and cores of solar system planets and exoplanets. Version 1 of this package was first built and used in Chen & Jacboson Earth and Planetary Science Letters (2022).
 
 To acheive the goal of balancing between simplicity and realism, the calculations for the volatile delivery, exchange, and loss are idealized in by assuming that:
@@ -7,10 +8,13 @@ To acheive the goal of balancing between simplicity and realism, the calculation
 3.
 
 The main programs are entitled with "run_". Differing solely in the characteristics of , these programs read in various N-body simulation output files including aorig.dat (), ABsizes.dat, MODEL_OUT_emb6.csv, MODEL_OUT_emb8.csv. It also calls other subprograms such as SF.py and henry.py that calculate the .  
-This model was written with flexbility in mind and it is relatively straightforward for users to introduce new mechanismms, formalisms, and equations into the main program. This can be done simply by.
+The main- and sub-programs were written with flexbility in mind and it is relatively straightforward for users to introduce new mechanismms, formalisms, and equations into the main program. This can be done simply by.
 
 
 Deciding which script to use will depend on the intent of the science goal. For instance, 
 
 
 Within the main script, the user can specify the desired output and format, as well as....
+
+
+### Crediting This Work
