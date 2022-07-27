@@ -7,12 +7,11 @@ To acheive the goal of balancing between simplicity and realism, the calculation
 2.
 3.
 
-The main programs are entitled with "run_". Differing solely in the characteristics of , these programs read in various N-body simulation output files including aorig.dat (), ABsizes.dat, MODEL_OUT_emb6.csv, MODEL_OUT_emb8.csv. It also calls other subprograms such as SF.py and henry.py that calculate the .  
+The main programs are named "run_.py". Differing solely in the characteristics of , these programs read in various N-body simulation output files including aorig.dat (), ABsizes.dat, MODEL_OUT_emb6.csv, MODEL_OUT_emb8.csv. It also calls other subprograms such as SF.py and henry.py that calculate the .  
 The main- and sub-programs were written with flexbility in mind and it is relatively straightforward for users to introduce new mechanismms, formalisms, and equations into the main program. This can be done simply by.
 
 
-Deciding which script to use will depend on the intent of the science goal. For instance, 
-
+Deciding which script to use will depend on the intent of the science goal. For instance, if the goal is to obtain a reasonable esimate of the an N2-CO2-H2O-rich atmosphere right after the accretion phase, then one could use "run_nbody.py" to generate a suite of different total atmospheric pressure and N2-CO2-H2O partial pressures. The only modification needed from the original code is providing a new planetgrowth.out data for the specific system of interest. 
 
 Within the main script, the user can specify the desired output and format, as well as....
 
