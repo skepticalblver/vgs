@@ -7,7 +7,7 @@ To acheive the goal of balancing between simplicity and realism, the calculation
 2.
 3.
 
-The main programs are named "run_.py". Differing solely in the characteristics of , these programs read in various N-body simulation output files including aorig.dat (initial semi-major axis of the planetesimals and embryos), ABsizes.dat (planetesimal size distribution), MODEL_OUT_emb6.csv, MODEL_OUT_emb8.csv. It also calls other subprograms such as SF.py and henry.py that calculate the .  
+The main programs are named "run_.py". Differing solely in the characteristics of , these programs read in various N-body simulation output files including aorig.dat (initial semi-major axis of the planetesimals and embryos), ABsizes.dat (planetesimal size distribution), MODEL_OUT_emb6.csv, MODEL_OUT_emb8.csv. It also calls other subprograms such as SF.py and henry.py that prescribes the volatile fraction for different chondritic materials and Henry's solubility coefficients for different gases.
 The main- and sub-programs were written with flexbility in mind and it is relatively straightforward for users to introduce new mechanismms, formalisms, and equations into the main program. This can be done simply by replacing the existng  with the "" section of the main program.
 
 
