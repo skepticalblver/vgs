@@ -5,9 +5,9 @@ To acheive the goal of balancing between simplicity and realism, the calculation
 
 1. Only three major volatile species are included in the mantle and atmosphere reservoirs; only carbon is included in the core.
 
-3. The magma ocean depth is fixed and persists across the entire duration of the accretion phase. Changes in MO depth and solidification time are not included.
+3. The magma ocean depth is constant and persists across the entire duration of the accretion phase. Changes in MO depth and solidification time are not included.
 
-3. 
+3. The parent bodies are rapidly oxidized and the redox conditions are fixed throughout time.
 
 4. Steam condensation is not included and no oceans are assumed to be present during impact events.
 
