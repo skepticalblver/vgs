@@ -1,5 +1,5 @@
 ### Model Overview
-`vol_accretor` is the official name for the original `volatileproject` branch and is package for generating mass abundance predictions of major volatile species during the formmation and accretion of Earth-sized terrestrial planets. The model is resolved across three different profiles ("boxes") and in time. The goal of this tooklit is to provide an understanding of gas-phase species behavior for a given N-body dynamical simulation; namely, the first-order modeling of the volatile content evolution in the atmospheres, interiors, and cores of solar system planets and exoplanets. Version 1 of this package was first built and used in Chen & Jacboson Earth and Planetary Science Letters (2022).
+`vgs` is the official name for the original Volatile Growth Simulator branch and is package for generating mass abundance predictions of major volatile species during the formmation and accretion of Earth-sized terrestrial planets. The model is resolved across three different profiles ("boxes") and in time. The goal of this tooklit is to provide an understanding of gas-phase species behavior for a given N-body dynamical simulation; namely, the first-order modeling of the volatile content evolution in the atmospheres, interiors, and cores of solar system planets and exoplanets. Version 1 of this package was first built and used in Chen & Jacboson Earth and Planetary Science Letters (2022).
 
 To acheive the goal of balancing between simplicity and realism, the calculations for the volatile delivery, exchange, and loss are idealized in by assuming that:
 
@@ -19,7 +19,7 @@ Deciding which script to use will depend on the intent of the science goal. For 
 
 
 ### Crediting This Work
-Please reference this work by citing Chen & Jacobson (2022) and stating the version used (`vol_accretor.version`).
+Please reference this work by citing Chen & Jacobson (2022) (https://doi.org/10.1016/j.epsl.2022.117741) and stating the version used (`vgs.version`).
 
 ### Getting Started
 
