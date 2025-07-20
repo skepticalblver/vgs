@@ -12,13 +12,13 @@ Version 1 of this toolkit was first implemented in Chen & Jacobson (2022, EPSL),
 
 3. Incorporates physics for:
 
-  a. Giant impact–induced atmospheric loss (Schlichting et al. 2015 formalism)
+      a. Giant impact–induced atmospheric loss (Schlichting et al. 2015 formalism)
 
-  b. Energy-limited hydrodynamic escape
+      b. Energy-limited hydrodynamic escape
 
-  c. Henry’s law partitioning between atmosphere and magma ocean
+      c. Henry’s law partitioning between atmosphere and magma ocean
 
-  d. Carbon sequestration during core formation (based on Deguen et al. 2011)
+      d. Carbon sequestration during core formation (based on Deguen et al. 2011)
 
 4. Compatible with Mercury6-based N-body simulations (Jacobson & Morbidelli 2014), including aorig.dat, planet_growth.out, and other collision tracking files.
 
