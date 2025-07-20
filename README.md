@@ -1,25 +1,63 @@
 ### Model Overview
-`vgs` is the official name for the original Volatile Growth Simulator branch and is package for generating mass abundance predictions of major volatile species during the formmation and accretion of Earth-sized terrestrial planets. The model is resolved across three different profiles ("boxes") and in time. The goal of this tooklit is to provide an understanding of gas-phase species behavior for a given N-body dynamical simulation; namely, the first-order modeling of the volatile content evolution in the atmospheres, interiors, and cores of solar system planets and exoplanets. Version 1 of this package was first built and used in Chen, Howard, and Seth A. Jacobson. EPSL. 594 (2022): 117741.
+`vgs` is the official repository for the original Volatile Growth Simulator, a modeling framework for simulating the delivery, partitioning, and loss of major volatile species (e.g., H₂O, CO₂, N₂) during the formation of terrestrial planets. This package is designed to generate mass abundance predictions for key volatiles across time, using N-body-derived accretion histories as input. VGS tracks these volatile species through three interconnected planetary reservoirs—atmosphere, mantle, and core—while accounting for both delivery (e.g., from chondritic impactors) and depletion mechanisms (e.g., impact erosion, ingassing/degassing, and hydrodynamic escape).
 
-To acheive the goal of balancing between simplicity and realism, the calculations for the volatile delivery, exchange, and loss are idealized in by assuming that:
-
-1. Only three major volatile species are included in the mantle and atmosphere reservoirs; only carbon is included in the core.
-
-3. The magma ocean depth is constant and persists across the entire duration of the accretion phase. Changes in MO depth and solidification time are not included.
-
-3. The parent bodies are rapidly oxidized and the redox conditions are fixed throughout time.
-
-4. Steam condensation is not included and no oceans are assumed to be present during impact events.
-
-The main programs are named "run_.py". Differing only in the nature of the input and output files, these programs contains the same physical proceses and mechanisms as described the main paper. They read in N-body integrator outputs from Jacoboson & Morbidelli (2014) including aorig.dat (initial semi-major axis of the planetesimals and embryos), ABsizes.dat (planetesimal size distribution), MODEL_OUT_emb6.csv, MODEL_OUT_emb8.csv. It also calls other subprograms such as SF.py and henry.py that prescribes the volatile fraction for different chondritic materials and Henry's solubility coefficients for different gases.
-The main- and sub-programs were written with flexbility in mind and it is relatively straightforward for users to introduce new mechanismms, formalisms, and equations into the main program. This can be done simply by replacing the existng expressions with the appropriate sections of the main program.
+Version 1 of this toolkit was first implemented in Chen & Jacobson (2022, EPSL), and a modified version was recently employed in Chen et al. (2025, ApJL) to assess the volatile evolution of TRAPPIST-1 analog systems.
 
 
-Deciding which script to use will depend on the intent of the science goal. For instance, if the goal is to obtain a reasonable esimate of the an N2-CO2-H2O-rich atmosphere right after the accretion phase, then one could use "run_nbody.py" to generate a suite of different total atmospheric pressure and N2-CO2-H2O partial pressures. The only modification needed from the original code is providing a new planetgrowth.out data for the specific system of interest. 
+### Key Features
 
+1. Time-resolved modeling of volatile transport throughout planetary accretion, including both stochastic impact events and secular processes.
+
+2. Three-box architecture representing the atmosphere, mantle, and core, enabling explicit tracking of volatile exchange and retention across reservoirs.
+
+3. Incorporates physics for:
+
+  a. Giant impact–induced atmospheric loss (Schlichting et al. 2015 formalism)
+
+  b. Energy-limited hydrodynamic escape
+
+  c. Henry’s law partitioning between atmosphere and magma ocean
+
+  d. Carbon sequestration during core formation (based on Deguen et al. 2011)
+
+4. Compatible with Mercury6-based N-body simulations (Jacobson & Morbidelli 2014), including aorig.dat, planet_growth.out, and other collision tracking files.
+
+5. Prescribes volatile input compositions based on cosmochemically informed chondritic gradients (e.g., E-type, S-type, C-type).
+
+###Scientific Applications
+
+VGS was designed to support a wide range of science goals related to early planetary evolution and habitability:
+
+  1. Estimating volatile budgets of Earth-sized planets during and after the accretion phase.
+
+  2. Simulating TRAPPIST-1 analog systems, including the influence of stellar luminosity evolution and disk composition on volatile outcomes.
+
+  3. Exploring volatile formation pathways in compact M-dwarf systems.
+
+  4. Producing initial conditions for atmosphere and climate models of rocky exoplanets.
+
+As demonstrated in Chen et al. (2025), VGS has been used to reproduce a broad spectrum of volatile outcomes, from dry, airless worlds to ocean-rich planets, based on a suite of more than 600 N-body simulations.
+
+### Assumptions & Limitations
+
+To balance realism and tractability, the model adopts several idealizations:
+
+  1. Only three volatiles (H₂O, CO₂, N₂) are tracked in the atmosphere and mantle; only carbon is tracked in the core.
+
+  2. The magma ocean is assumed to be globally molten and constant in depth for the duration of accretion.
+
+  3. Steam condensation and ocean formation are not explicitly modeled.
+
+  4. Redox state and oxidation efficiency of impactors are held fixed throughout time.
+
+  5. Surface temperature is approximated as isothermal for volatile solubility calculations.
 
 ### Crediting This Work
 Please reference this work by citing Chen & Jacobson (2022) (https://doi.org/10.1016/j.epsl.2022.117741) and stating the version used (`vgs.version`).
+
+### Choosing a script
+
+The core programs are named run_*.py, each tailored to a different input/output workflow. The most commonly used is run_nbody.py, which reads N-body outputs and generates time-resolved predictions for surface and interior volatile content. To apply this to a new planetary system (e.g., Kepler-186 or a synthetic compact analog), users need only provide a modified planet_growth.out file derived from their own N-body integration.
 
 ### Getting Started
 
