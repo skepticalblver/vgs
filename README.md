@@ -59,13 +59,18 @@ Please reference this work by citing Chen & Jacobson (2022) (https://doi.org/10.
 
 The core programs are named run_*.py, each tailored to a different input/output workflow. The most commonly used is run_nbody.py, which reads N-body outputs and generates time-resolved predictions for surface and interior volatile content. To apply this to a new planetary system (e.g., Kepler-186 or a synthetic compact analog), users need only provide a modified planet_growth.out file derived from their own N-body integration.
 
+### Citing VGS
+
+If you use this code in your work, please cite:
+
+Chen & Jacobson (2022), Earth and Planetary Science Letters, 594, 117741
+
+Chen et al. (2025), Astrophysical Journal Letters, accepted (https://doi.org/10.1016/j.epsl.2022.117741)
+
+Also include the version number (e.g., vgs.version) used in your analysis.
+
 ### Getting Started
 
-
-
-### More Examples
-
-
-
+See the examples/ folder for template scripts and recommended input formats. Basic usage instructions and comments are provided in each run_*.py file. Documentation is under active development and may be updated periodically. For questions or prior versions of the model, please contact the repository maintainer.
 
 P.S. The documentation and files will be regularly updated to fix issues or improve upon the existing version. Please check for discrepancies or email the author(s) for previous model versions.
