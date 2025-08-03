@@ -63,14 +63,14 @@ The core programs are named run_*.py, each tailored to a different input/output 
 
 If you use this code in your work, please cite:
 
-Chen & Jacobson (2022), Earth and Planetary Science Letters, 594, 117741
+Chen & Jacobson (2022), Earth and Planetary Science Letters, 594, 117741 (https://doi.org/10.1016/j.epsl.2022.117741)
 
-Chen et al. (2025), Astrophysical Journal Letters, accepted (https://doi.org/10.1016/j.epsl.2022.117741)
+Chen et al. (2025), Astrophysical Journal Letters, 
 
 Also include the version number (e.g., vgs.version) used in your analysis.
 
 ### Getting Started
 
-See the examples/ folder for template scripts and recommended input formats. Basic usage instructions and comments are provided in each run_*.py file. Documentation is under active development and may be updated periodically. For questions or prior versions of the model, please contact the repository maintainer.
+Execute "run_trappist.py" to start the simulations tuned for initially TRAPPIST-1-like disks. Documentation is under active development and may be updated periodically. For questions or prior versions of the model, please contact the repository maintainer.
 
 P.S. The documentation and files will be regularly updated to fix issues or improve upon the existing version. Please check for discrepancies or email the author(s) for previous model versions.
