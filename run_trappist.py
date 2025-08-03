@@ -583,8 +583,6 @@ for filename in sorted(glob.glob('insert_directory_for_N-body_data'), key=natsor
 
 					print('atm_grams=',  water_a, nitrogen_a,carbon_a,'mantle_grams=', water_m, nitrogen_m)
 
-				       # print 'water_frac=', water_grams/atm_grams,'nitro_frac=',nitrogen_grams/atm_grams,'Psurf=', Psurf_bar,'mantle=', mantle_grams
-					#print('escape=','{:0.3e}'.format(impactEsc),'Psurf = ', round(Psurf_bar,3),'mantle_grams=', '{:0.3e}'.format(mantle_grams),'atm_grams=', '{:0.3e}'.format(atm_grams),'Project AU = ', round(project_au,2))
 
 				Mcurr = 0
 				mearth = target_m*Mearth
