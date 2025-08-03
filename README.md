@@ -73,4 +73,4 @@ Also include the version number (e.g., vgs.version) used in your analysis.
 
 Execute "run_trappist.py" to start the simulations tuned for initially TRAPPIST-1-like disks. Documentation is under active development and may be updated periodically. For questions or prior versions of the model, please contact the repository maintainer.
 
-P.S. The documentation and files will be regularly updated to fix issues or improve upon the existing version. Please check for discrepancies or email the author(s) for previous model versions.
+P.S. The documentation and files will be regularly updated to fix issues or improve upon the existing version. Please check for discrepancies or email the author(s) for previous model versions. Contact hchen@fit.edu for any questions, concerns, or requests for additional data.
