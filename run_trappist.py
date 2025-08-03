@@ -35,26 +35,6 @@ with open( "ABsizes.dat", 'r') as f:
 ab_radii = [float(i) for i in ab_radii]
 
 
-#read in asteroid file
-
-#with open( "MODEL_OUT_emb6.csv", 'r') as f:
-    #    lines =  f.read().splitlines()
-
-   #     for line in lines:
-
-  #              ab_i.append(line.split(None,8)[0])
- #               ab_radii.append(line.split(None,8)[6])
-
-
-#with open( "MODEL_OUT_emb8.csv", 'r') as f:
-    #    lines =  f.read().splitlines()
-
-   #     for line in lines:
-
-  #              ab_i.append(line.split(None,8)[0])
- #               ab_radii.append(line.split(None,8)[6])
-
-
 
 
 r = 6000 #radius of Earth mantle in km
@@ -93,7 +73,7 @@ CompArray =  np.empty(5)
 
 natsort = lambda s: [int(t) if t.isdigit() else t.lower() for t in re.split('(\d+)', s)]
 counter = 0
-for filename in sorted(glob.glob('trap_sims_second_batch/sim*'), key=natsort):
+for filename in sorted(glob.glob('insert_directory_for_N-body_data'), key=natsort):
 	print(filename)
 	print("in main")
 	initial = True #if true, run initialization8to1-0.5-10
@@ -241,13 +221,6 @@ for filename in sorted(glob.glob('trap_sims_second_batch/sim*'), key=natsort):
 					print(carbon_a,nitrogen_a,carbon_m,nitrogen_m,carbon_c)
 					##########################deposit/accret gas$$$$$$$$$$$$$$$$$$$$$$$$$$$$	
 					emb_water, emb_carbon, emb_nitrogen = run_embryo_trap.calc(project_i,20)
-					#water_a= water_a + emb_water
-					#carbon_a= carbon_a + emb_carbon
-					#nitrogen_a= nitrogen_a + emb_nitrogen
-					#print(emb_water, emb_carbon, emb_nitrogen)
-					#accret_tot = emb_water + emb_carbon + emb_nitrogen
-
-					#atm_grams= water_a +nitrogen_a + carbon_a 
                     
 					water_a = water_a + emb_water*0.1
 					carbon_a = carbon_a + emb_carbon*0.1
@@ -271,7 +244,6 @@ for filename in sorted(glob.glob('trap_sims_second_batch/sim*'), key=natsort):
 					carbon_molfrac =  carbon_mol_a/total_mol
 					nitrogen_molfrac = nitrogen_mol_a/total_mol
                     
-                    #calculate radius and other vars needed for mass loss scheme
 					target_r = get_radius.r_cm(target_m)
 					Vesc = math.sqrt((2*cgrav*target_m)/target_r)
 					kai = (impact_v*project_m)/(Vesc*target_m)
@@ -289,7 +261,7 @@ for filename in sorted(glob.glob('trap_sims_second_batch/sim*'), key=natsort):
 					nitrogen_a = nitrogen_a - impactEsc*nitrogen_molfrac  
 
 					atm_grams= water_a +nitrogen_a +carbon_a 
-                #########################hydrodynamics escape, energy-limited##############
+					########hydrodynamics escape, energy-limited##############
 					Feuv=29.7*(time+10/1e9)**(-1.23)*(1.23)**(-2)
 					m_elim = (np.pi*Feuv*target_r**3)/(cgrav*target_m)
 
@@ -358,7 +330,7 @@ for filename in sorted(glob.glob('trap_sims_second_batch/sim*'), key=natsort):
 
                         
 					atm_grams= water_a +nitrogen_a + carbon_a 
-						#print 'target_m=',atm_grams,water_a,nitrogen_a,carbon_a , argon_a,Mcap
+
 					Psurf  = atm_grams*g_accel/SA_planet
 					Psurf_bar =Psurf*1e-6
 				
@@ -404,12 +376,6 @@ for filename in sorted(glob.glob('trap_sims_second_batch/sim*'), key=natsort):
 						Mcurr  = Mcurr + Mpl
 
 
-						##########################deposit/accret gas$$$$$$$$$$$$$$$$$$$$$$$$$$$$	
-						#water_a= water_a + Mpl*SF.water_mf(project_au)
-						#carbon_a= carbon_a + Mpl*SF.carbon_mf(project_au)
-						#nitrogen_a= nitrogen_a + Mpl*SF.nitrogen_mf(project_au)
-						#atm_grams= water_a +nitrogen_a +carbon_a + argon_a
-				
 						water_m= water_m + Mpl*SF.water_mf(project_au)
 						carbon_m= carbon_m + Mpl*SF.carbon_mf(project_au)
 						nitrogen_m= nitrogen_m + Mpl*SF.nitrogen_mf(project_au)
@@ -422,7 +388,7 @@ for filename in sorted(glob.glob('trap_sims_second_batch/sim*'), key=natsort):
 						carbon_mm = 12.
 						nitrogen_mm = 28.				
 					
-						#print "water_mol=", henry_water_grams
+
 						water_mol_a = water_a/18.
 						
 						carbon_mol_a = carbon_a/12.   # g/(g/mol)
@@ -558,11 +524,9 @@ for filename in sorted(glob.glob('trap_sims_second_batch/sim*'), key=natsort):
 						m_react = (0.15*(4/3*np.pi*target_r**3)*((8*np.pi*cgrav*Rhopl*target_r**2)/(3*e_m)))*project_rho  #from Deguen+2011
 						carbon_c_eq = (D_c*(carbon_m/m_react))*(1/3*project_m)*(m_react/(target_m*2/3))
 						if carbon_c_eq > carbon_c: #and (D_c*(carbon_m/m_react)) > carbon_c_eq/((1/3*target_m)*(m_react/(target_m*2/3))):						
-							#carbon_m = carbon_m -(carbon_c_eq -carbon_c)
+
 							carbon_c = carbon_c_eq
-					#	else:
-					#		carbon_m = carbon_m +(carbon_c - carbon_c_eq)
-					#		carbon_c = carbon_c_eq
+
                     
 						water_m = max(10.,water_m)
 						carbon_m = max(10.,carbon_m)
@@ -570,18 +534,13 @@ for filename in sorted(glob.glob('trap_sims_second_batch/sim*'), key=natsort):
 						
     
 						mantle_grams =   water_m + carbon_m + nitrogen_m
-						#print 'target_m=',atm_grams,water_a,nitrogen_a,carbon_a
-                        
+
 						Psurf  = atm_grams*g_accel/SA_planet
 						Psurf_bar =Psurf*1e-6
 						
 						
-						#print(Tsurf, atm_grams)
-						#if math.isnan(F_atm):
-						#	sys.exit()
 						if (Rpl > 1e7 or random.uniform(0,1) < 1e-4):
-							#print(carbon_a,nitrogen_a,carbon_m)
-
+							
 							fracEarth2_List.append(round(target_m/Mearth,3))  #Mearth
 							rpl2_List.append(float(Rpl))
 							esc2_List.append('{:0.3e}'.format(impactEsc))
@@ -594,20 +553,6 @@ for filename in sorted(glob.glob('trap_sims_second_batch/sim*'), key=natsort):
 					
 
 					
-				#	kappa = ((kappa_0*g_accel)/(3*Psurf))**(1/2.)
-				#	tau = (3*kappa*atm_grams)/(8*np.pi*target_r**2)
-				#	F_atm = 2*sigma*(Ts**4-Teq**4)/(tau +2)
-			#		Ts = (F_atm/sigma + Teq**4)**(1/4.)
-			#		if len(time_List) == 1.:
-				#		deltaM = target_m
-				#		deltaT = (time)*3.154e7
-				#	else:		
-				#		deltaM = project_m
-					#	deltaT = (time - time_List[-1])*3.154e7
-					#Ts= (0.5*deltaM*impact_v**2/2. - 4*np.pi*target_r**2*F_atm*deltaT)/(Cp*deltaM)   +  300
-				#	Ts = ((tau + 2)*(h_frac*deltaM*impact_v**2)/(16*sigma*np.pi*target_r**2*deltaT) + Teq**4)**(1/4#.)
-				#	if Ts <=0.:
-					#	Ts = 500
 				
 					Psurf_List.append(round(Psurf_bar,3))
 					waterfrac_List.append('{:0.3e}'.format(water_a))
@@ -646,10 +591,6 @@ for filename in sorted(glob.glob('trap_sims_second_batch/sim*'), key=natsort):
 				earthm_List.append(mearth)
 			#	time_List.append(float(time))
 
-			#print('water_mol=',water_mol,'Psurf = ',Psurf,'atm_grams=', atm_grams,'mantle_grams=',mantle_grams)
-			#withAU1 = line[:31] + str(target_au)  + line[31:]
-			#withAU2 = withAU1[:-24] + str(project_au)  + withAU1[-24:]
-			#newdata.append(withAU2)
 	counter  = counter+1
 	######################save data################
 	newname = filename.replace(".", "")
@@ -666,7 +607,3 @@ for filename in sorted(glob.glob('trap_sims_second_batch/sim*'), key=natsort):
 		f4.write("%s %s %s %s %s %s %s %s" % ("Earth", "Earth","CoreC", "BulkMantle", "Water  ", "carbon ", "Nitrogen", "time \n"))
 		writer.writerows(zip(fracEarth_List, time_List, carbonc_List,  mantle_List, waterm_List,carbonm_List, nitrogenm_List,time_List))
 
-	#with open('reference/OUT_FLUX_ref', 'w') as f6:
-		#writer = csv.writer(f6, delimiter='\t')
-		#f6.write("%s %s %s %s %s %s" % ("Earth", "Esc", "Accreted", "Ingassed", "Degassed", "time \n"))
-		#writer.writerows(zip(fracEarth_List, esctot_List,  accret_List, ingassed_List, degassed_List, time_List))
