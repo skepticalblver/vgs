@@ -55,10 +55,8 @@ To balance realism and tractability, the model adopts several idealizations:
 ### Crediting This Work
 Please reference this work by citing Chen & Jacobson (2022) (https://doi.org/10.1016/j.epsl.2022.117741) and stating the version used (`vgs.version`).
 
-### Choosing a script
 
-The core programs are named run_*.py, each tailored to a different input/output workflow. The most commonly used is run_nbody.py, which reads N-body outputs and generates time-resolved predictions for surface and interior volatile content. To apply this to a new planetary system (e.g., Kepler-186 or a synthetic compact analog), users need only provide a modified planet_growth.out file derived from their own N-body integration.
-
+the main program is run_model.py. It reads in various output data files including aorig.dat, ABsizes.dat, MODEL_OUT_emb6.csv, MODEL_OUT_emb8.csv. It also calls other subprograms such as SF.py and henry.py. To begin, simply change the desired parameters in the file and execute.
 ### Citing VGS
 
 If you use this code in your work, please cite:
@@ -71,6 +69,8 @@ Also include the version number (e.g., vgs.version) used in your analysis.
 
 ### Getting Started
 
-Execute "run_trappist.py" to start the simulations tuned for initially TRAPPIST-1-like disks. Documentation is under active development and may be updated periodically. For questions or prior versions of the model, please contact the repository maintainer.
+Execute run_trappist.py to begin simulations tailored for initially TRAPPIST-1-like disks. This main script reads in N-body output files and calls supporting modules like SF.py and henry.py. It generates time-resolved predictions for surface and interior volatile content throughout accretion. To apply the model to a new planetary system (e.g., Kepler-186 or a custom compact analog), simply replace the input planet_growth.out file with one derived from your own N-body simulation, adjust parameters as needed, and run the script.
+
+Documentation is under active development and may be updated periodically. For questions or prior versions of the model, please contact the repository maintainer.
 
 P.S. The documentation and files will be regularly updated to fix issues or improve upon the existing version. Please check for discrepancies or email the author(s) for previous model versions. Contact hchen@fit.edu for any questions, concerns, or requests for additional data.
