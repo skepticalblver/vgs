@@ -1,1 +1,0 @@
-the main program is run_model.py. It reads in various output data files including aorig.dat, ABsizes.dat, MODEL_OUT_emb6.csv, MODEL_OUT_emb8.csv. It also calls other subprograms such as SF.py and henry.py. To begin, simply change the desired parameters in the file and execute.
