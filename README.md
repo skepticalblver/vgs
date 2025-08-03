@@ -69,7 +69,7 @@ Also include the version number (e.g., vgs.version) used in your analysis.
 
 ### Getting Started
 
-Execute run_trappist.py to begin simulations tailored for initially TRAPPIST-1-like disks. This main script reads in N-body output files and calls supporting modules like SF.py and henry.py. It generates time-resolved predictions for surface and interior volatile content throughout accretion. To apply the model to a new planetary system (e.g., Kepler-186 or a custom compact analog), simply replace the input planet_growth.out file with one derived from your own N-body simulation, adjust parameters as needed, and run the script.
+Execute run_trappist.py to begin simulations tailored for initially TRAPPIST-1-like disks. This main script reads in N-body output files and calls supporting modules including SF.py (for setting the initial composition), henry.py (for setting the Henry solubilities), un_embryo_trap.py (for running the accretion of individual embryos). It generates time-resolved predictions for surface and interior volatile content throughout accretion. To apply the model to a new planetary system (e.g., Kepler-186 or a custom compact analog), simply replace the input planet_growth.out file with one derived from your own N-body simulation, adjust parameters as needed, and run the script.
 
 Documentation is under active development and may be updated periodically. For questions or prior versions of the model, please contact the repository maintainer.
 
